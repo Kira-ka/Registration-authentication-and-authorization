@@ -31,4 +31,5 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="get_in">Get in</string>
+    <string name="ask_for_authentication">You are not authenticated. Complete authentication.</string>
 </resources>

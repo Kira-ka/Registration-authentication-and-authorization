@@ -130,8 +130,23 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         _photo.value = PhotoModel(uri)
     }
 
-    fun likeById(id: Long) {
-        TODO()
+    fun likeById(id: Long) = viewModelScope.launch {
+        val flagPost = data.value?.posts?.find { it.id == id }
+        try {
+            _dataState.value = FeedModelState(refreshing = true)
+            if (flagPost != null) {
+                when {
+                    !flagPost.likedByMe  -> repository.likeById(id)
+                    flagPost.likedByMe  -> repository.dislikeById(id)
+
+                }
+            }
+            _dataState.value = FeedModelState()
+            loadPosts()
+        } catch (e: Exception) {
+            _dataState.value = FeedModelState(error = true)
+        }
+
     }
 
     fun removeById(id: Long) {

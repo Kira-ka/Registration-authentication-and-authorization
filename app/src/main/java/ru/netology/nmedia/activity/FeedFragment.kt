@@ -8,17 +8,22 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.viewmodel.AuthViewModel
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class FeedFragment : Fragment() {
     private val viewModel: PostViewModel by activityViewModels()
+    private val AuthViewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +38,15 @@ class FeedFragment : Fragment() {
             }
 
             override fun onLike(post: Post) {
-                viewModel.likeById(post.id)
+                if (AuthViewModel.authenticated) viewModel.likeById(post.id) else MaterialAlertDialogBuilder(
+                    requireActivity()
+                )
+                    .setMessage(R.string.ask_for_authentication)
+                    .setPositiveButton(R.string.sign_in) { dialog, which ->
+                        findNavController().navigate(R.id.action_feedFragment_to_signInFragment)
+                    }
+                    .show()
+
             }
 
             override fun onRemove(post: Post) {
@@ -76,8 +89,17 @@ class FeedFragment : Fragment() {
         }
 
         binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
+            if (AuthViewModel.authenticated) findNavController().navigate(R.id.action_feedFragment_to_newPostFragment) else MaterialAlertDialogBuilder(
+                requireActivity()
+            )
+                .setMessage(R.string.ask_for_authentication)
+                .setPositiveButton(R.string.sign_in) { dialog, which ->
+                    findNavController().navigate(R.id.action_feedFragment_to_signInFragment)
+                }
+                .show()
         }
+
+
 
         return binding.root
     }

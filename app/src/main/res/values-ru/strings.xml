@@ -33,4 +33,6 @@
     <string name="password">Пароль</string>
     <string name="get_in">Войти</string>
     <string name="ask_for_authentication">Вы не аутентифицированы. Пройдите аутентификацию.</string>
+    <string name="are_you_sure">Вы уверены?</string>
+    <string name="signout">Выйти</string>
 </resources>

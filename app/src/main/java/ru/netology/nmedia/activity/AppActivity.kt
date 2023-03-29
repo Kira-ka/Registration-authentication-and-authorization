@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.messaging.FirebaseMessaging
 import ru.netology.nmedia.R
 import ru.netology.nmedia.activity.NewPostFragment.Companion.textArg
@@ -50,7 +51,7 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
         checkGoogleApiAvailability()
     }
 
-    override fun onCreateOptionsMenu( menu: Menu): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
 
         menu.let {
@@ -65,7 +66,7 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
             R.id.signin -> {
                 findNavController(R.id.nav_host_fragment).navigate(R.id.action_feedFragment_to_signInFragment)
 
-               true
+                true
             }
             R.id.signup -> {
                 // TODO: just hardcode it, implementation must be in homework
@@ -73,14 +74,20 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
                 true
             }
             R.id.signout -> {
-                // TODO: just hardcode it, implementation must be in homework
-                AppAuth.getInstance().removeAuth()
+
+                MaterialAlertDialogBuilder(this)
+                    .setMessage(R.string.are_you_sure)
+                    .setPositiveButton(R.string.signout) { dialog, which ->
+                        AppAuth.getInstance().removeAuth()
+                    }
+                    .show()
+
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
 
     private fun checkGoogleApiAvailability() {

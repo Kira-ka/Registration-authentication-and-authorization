@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.netology.nmedia.auth.AppAuth
 import ru.netology.nmedia.db.AppDb
-import ru.netology.nmedia.model.SignInState
+import ru.netology.nmedia.model.SignState
 import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.repository.PostRepositoryImpl
 
@@ -19,8 +19,8 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
     private val repository: PostRepository =
         PostRepositoryImpl(AppDb.getInstance(context = application).postDao())
 
-    private val _singInState = MutableLiveData<SignInState>()
-    val singInState: LiveData<SignInState>
+    private val _singInState = MutableLiveData<SignState>()
+    val singInState: LiveData<SignState>
         get() = _singInState
 
 
@@ -43,11 +43,11 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                     if (pass != null) {
                         val token = repository.authentication(login, pass)
                         AppAuth.getInstance().setAuth(token.id, token.token)
-                        _singInState.value = SignInState(false)
+                        _singInState.value = SignState(false)
                     }
                 }
             } catch (e: Exception) {
-                _singInState.value = SignInState(true)
+                _singInState.value = SignState(true)
             }
             editedLogin.value = null
             editedPass.value = null

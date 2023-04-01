@@ -155,4 +155,20 @@ class PostRepositoryImpl(private val dao: PostDao) : PostRepository {
         return body
     }
 
+    override suspend fun registration(login: String, pass: String, name: String): Token {
+        var body = Token(0, "0", null)
+        try {
+            val response = PostsApi.service.registerUser(login, pass, name)
+            if (!response.isSuccessful) {
+                throw ApiError(response.code(), response.message())
+            }
+            body = response.body() ?: throw ApiError(response.code(), response.message())
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError
+        }
+        return body
+    }
+
 }

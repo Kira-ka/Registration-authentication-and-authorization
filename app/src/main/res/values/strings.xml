@@ -34,4 +34,8 @@
     <string name="ask_for_authentication">You are not authenticated. Complete authentication.</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="signout">Signout</string>
+    <string name="name">Name</string>
+    <string name="confirm">Сonfirm password</string>
+    <string name="get_up">Get Up</string>
+    <string name="error">wrong</string>
 </resources>

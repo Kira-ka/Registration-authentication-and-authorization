@@ -27,6 +27,7 @@
     <style name="Sin_in" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
         <item name="boxStrokeWidth">2dp</item>
+        <item name="errorTextColor">#ff0000</item>
     </style>
 
 </resources>

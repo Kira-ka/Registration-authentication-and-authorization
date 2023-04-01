@@ -19,9 +19,6 @@ import ru.netology.nmedia.viewmodel.SignInViewModel
 
 class SignInFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = SignInFragment()
-    }
 
 
     private val viewModel: SignInViewModel by viewModels()
@@ -56,6 +53,10 @@ class SignInFragment : Fragment() {
         }
 
         return binding.root
+    }
+    override fun onDestroyView() {
+        fragmentBinding = null
+        super.onDestroyView()
     }
 
 }

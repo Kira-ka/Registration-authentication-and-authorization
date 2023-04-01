@@ -1,5 +1,5 @@
 package ru.netology.nmedia.model
 
-data class SignInState(
+data class SignState(
     val error: Boolean = false
 )

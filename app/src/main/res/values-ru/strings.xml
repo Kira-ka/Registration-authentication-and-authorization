@@ -35,4 +35,8 @@
     <string name="ask_for_authentication">Вы не аутентифицированы. Пройдите аутентификацию.</string>
     <string name="are_you_sure">Вы уверены?</string>
     <string name="signout">Выйти</string>
+    <string name="name">Имя</string>
+    <string name="confirm">Подтверждение пароля</string>
+    <string name="get_up">Зарегистрироваться</string>
+    <string name="error">неверно</string>
 </resources>
